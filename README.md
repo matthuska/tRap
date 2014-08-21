@@ -4,13 +4,19 @@ tRap is an R package that can be used to calculate the predicted binding affinit
 
 ## Installation
 
-You will need the latest version of `devtools`:
+You will need the latest version of `devtools`. First install the release version:
 
 ```R
 install.packages("devtools")
 ```
 
-Then you can install the latest development version of tRap from github with:
+then update it to the latest developement version:
+
+```R
+devtools::install_github("devtools")
+```
+
+Finally you can install the latest development version of tRap from github with:
 
 ```R
 devtools::install_github("matthuska/tRap")
