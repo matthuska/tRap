@@ -1,0 +1,6 @@
+*.o
+*.so
+.Rproj.user
+.Rhistory
+inst/doc
+.httr-oauth

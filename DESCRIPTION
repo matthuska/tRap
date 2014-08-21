@@ -1,0 +1,21 @@
+Package: tRap
+Title: A biophysical model for transcription factor binding affinities
+Version: 0.7
+Authors@R: c(person("Matthias", "Heinig", role=c("aut", "cre"),
+    email="heinig@molgen.mpg.de"), person("Matt", "Huska", role=c("aut"),
+    email="huska@molgen.mpg.de"))
+Description: Implementation of the TRAP method to predict transcription factor
+    binding affinity to DNA sequences (Roider et al 2007)
+URL: http://trap.molgen.mpg.de
+Depends:
+    R (>= 3.1.1)
+License: LGPL
+LazyData: true
+LinkingTo: Rcpp
+Imports:
+    Rcpp,
+    evd,
+    stringr (>= 0.6.2),
+    ROCR
+Suggests:
+    testthat
