@@ -61,6 +61,8 @@ And now you can push into your repository:
 git push
 ```
 
+Now go to the github website and do a [pull request](https://help.github.com/articles/using-pull-requests).
+
 ### R development
 
 After creating a branch in your local git repository, modify the R or C++ code however you need and then run R from inside the root of the package's directory (e.g. tRap/) and run a few `devtools` commands:
