@@ -22,6 +22,12 @@ Finally you can install the latest development version of tRap from github with:
 devtools::install_github("matthuska/tRap")
 ```
 
+If you're in our group at the MPIMG then you can also install a package containing pre-processed TRANSFAC matrices. Sorry this is not available to people outside of our group because TRANSFAC is a commercial database.
+
+```R
+devtools::install_local("/home/huska/pub/tRapTransfac_0.1.tar.gz")
+```
+
 ## Developing
 
 ### git
