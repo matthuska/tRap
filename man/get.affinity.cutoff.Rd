@@ -3,7 +3,7 @@
 \alias{get.affinity.cutoff}
 \title{determine significance threshold for tRap affinities}
 \usage{
-get.affinity.cutoff(matrix.name, pwm, cutoff)
+get.affinity.cutoff(matrix.name, pwm, pvalue.cutoff)
 }
 \arguments{
 \item{pwm}{the position weight matrix}

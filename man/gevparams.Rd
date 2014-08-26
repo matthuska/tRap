@@ -4,12 +4,16 @@
 \alias{gevparams}
 \title{parameters for the fitted extreme value distributions for
 affinities of each transfac matrix}
+\format{A matrix containing the parameters (columns) for each pwm matrix (rows)}
 \usage{
 data(gevparams)
 }
 \description{
 parameters for the fitted extreme value distributions for
 affinities of each transfac matrix
+
+Precalculated generalized extreme value distribution parameters for
+the JASPAR and TRANSFAC database matrices.
 }
 \details{
 parameters for the fitted extreme value distributions for
@@ -18,4 +22,5 @@ affinities of each transfac matrix fitted from human promoter sequences
 \references{
 Manke et al.
 }
+\keyword{datasets}
 

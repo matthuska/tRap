@@ -3,9 +3,7 @@
 #' Jaspar file for all matrices should have the format as provided by
 #' jaspar: http://jaspar.genereg.net/html/DOWNLOAD/jaspar_CORE/non_redundant/all_species/matrix_only/matrix_only.txt
 #' @title read a transfac matrix
-#' @aliases read.transfac read.transfac.dir read.jaspar
 #' @param file transfac matrix / jaspar file for all matrices
-#' @param dir directory of transfac matrices
 #' @return read.transfac returns a list of matrices with four rows for A, C, G, T
 #' read.transfac.dir returns a list of matrices read from a directory,
 #' named with the filenames of the matrix files.
@@ -55,6 +53,16 @@ read.transfac <- function(file) {
   return(matrices)
 }
 
+#' Load a whole directory of TRANSFAC matrices
+#'
+#' read.transfac.dir returns a list of matrices read from a directory,
+#' named with the filenames of the matrix files.
+#' @title read a directory of transfac matrices
+#' @param dir directory of transfac matrices
+#' @return read.transfac returns a list of matrices with four rows for A, C, G, T
+#' @export
+#' @seealso \code{\link{read.transfac}} to read a single matrix
+#' @author Matthias Heinig
 read.transfac.dir <- function(dir) {
   files = list.files(dir)
   matrices = lapply(files, function(f) read.transfac(file.path(dir, f)))
@@ -73,7 +81,14 @@ normalize.pwm <- function(matrix) {
   return(matrix / rep(apply(matrix, 2, sum), each=4))
 }
 
-
+#' Load a generic position-specific count matrix
+#'
+#' @title read a PSCM
+#' @param file a file containing position specific count matrices
+#' @return returns a list of matrices with four rows for A, C, G, T
+#' @export
+#' @seealso \code{\link{read.transfac.dir}}
+#' @author Matthias Heinig
 read.pscm <- function (file) {
   matrices = list()
   lines = readLines(file)
@@ -109,6 +124,16 @@ read.pscm <- function (file) {
   return(matrices)
 }
 
+#' Load a PWM matrix from Jaspar
+#'
+#' Jaspar file for all matrices should have the format as provided by
+#' jaspar: http://jaspar.genereg.net/html/DOWNLOAD/jaspar_CORE/non_redundant/all_species/matrix_only/matrix_only.txt
+#' @title read a jaspar matrix
+#' @param file jaspar file for all matrices
+#' @return returns a list of matrices with four rows for A, C, G, T
+#' @export
+#' @seealso \code{\link{read.transfac.dir}}
+#' @author Matthias Heinig
 read.jaspar <- function (file) {
   matrices = list()
   lines = readLines(file)

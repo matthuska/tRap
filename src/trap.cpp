@@ -107,6 +107,16 @@ void affinity(Rcpp::NumericVector pwm, int motiflength, std::string sequence, in
   } /* loop over sequence */
 }
 
+//' Calculate the TRAP affinity for one or more sequences (one score per sequence)
+//'
+//' @param pwm The position weight matrix
+//' @param motiflength The length of the PWM
+//' @param sequence a list of one or more genomic sequences
+//' @param seqlength the lengths of the sequences
+//' @param Rmax rmax
+//' @param lambda lambda
+//' @param bothstrands should the affinity be calcuated on both strands (DNA) or just one (RNA)
+//' @return a numeric vector of the scores for each sequence
 //' @export
 // [[Rcpp::export]]
 Rcpp::NumericVector R_affinity_sum_multi(Rcpp::NumericVector pwm, int motiflength, std::vector< std::string > sequence, Rcpp::IntegerVector seqlength, double Rmax, double lambda, int bothstrands) {
@@ -128,6 +138,11 @@ Rcpp::NumericVector R_affinity_sum_multi(Rcpp::NumericVector pwm, int motiflengt
   return(sums);
 }
 
+//' Calculate the TRAP affinity for each position along one or more sequences
+//'
+//' @inheritParams R_affinity_sum_multi
+//' @return a list where each element is a numeric vector containing the
+//' scores along the length of a single sequence.
 //' @export
 // [[Rcpp::export]]
 Rcpp::List R_affinity_multi(Rcpp::NumericVector pwm, int motiflength, std::vector< std::string > sequence, Rcpp::IntegerVector seqlength, double Rmax, double lambda, int bothstrands) {
