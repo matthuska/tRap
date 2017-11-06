@@ -13,43 +13,45 @@
 read.transfac <- function(file) {
   matrices = list()
   lines = readLines(file)
-  count.matrix = numeric()
-  read = F
-  first = T
   id = NULL
   accession = NULL
   for (line in lines) {
-    if (substr(line, 1, 2) == "ID") {
-      id = gsub("\\s", "", substr(line, 3, nchar(line)))
-    }
-    if (substr(line, 1, 2) == "AC") {
-      if (!first) {
-        attr(count.matrix, "id") = id
-        attr(count.matrix, "accession") = accession
-        matrices[[length(matrices) + 1]] = count.matrix
-      } else {
-        first = F
+    cmd <- substr(line, 1, 2)
+    if (cmd == "AC") {
+      # Save any existing count matrix because we are starting a new one
+      if (exists("count.matrix")) {
+        mat <- count.matrix[,seq_len(cols)]
+        attr(mat, "id") = id
+        attr(mat, "accession") = accession
+        matrices[[id]] <- mat
       }
-      accession = gsub("\\s", "", substr(line, 3, nchar(line)))
-    }
-    if (read) {
-      if (substr(line, 1, 2) == "XX") {
-        read = F
-      } else {
-        items = strsplit(line, "\\s+")[[1]]
-        count.matrix = cbind(count.matrix, as.numeric(items[2:5]))
-        rownames(count.matrix) = c("A", "C", "G", "T")
+      # Create a new count.matrix and set the accession number
+      count.matrix <- matrix(nrow=4, ncol=100)
+      cols <- 0
+      rownames(count.matrix) = c("A", "C", "G", "T")
+      accession <- strsplit(line, "\\s+")[[1]][[2]]
+    } else if (cmd == "ID") {
+      id <- strsplit(line, "\\s+")[[1]][[2]]
+    } else if (grepl("[0-9][0-9]", cmd)) {
+      # numbered lines are part of the count matrix
+      idx <- as.numeric(cmd)
+      # In the rare case that there are more than 100 positions in the motif
+      if (ncol(count.matrix) < idx) {
+        count.matrix.tmp <- count.matrix
+        count.matrix <- matrix(nrow=4, ncol=idx)
+        count.matrix[,seq_len(ncol(count.matrix.tmp))] <- count.matrix.tmp
       }
-    }
-    if (substr(line, 1, 2) == "P0") {
-      read = T
+      items <- strsplit(line, "\\s+")[[1]]
+      count.matrix[,idx] <- as.numeric(items[2:5])
+      cols <- max(cols, idx)
     }
   }
-  # append last matrix
-  attr(count.matrix, "id") = id
-  attr(count.matrix, "accession") = accession
-  matrices[[length(matrices) + 1]] = count.matrix
-  names(matrices) = sapply(matrices, attr, "id")
+  if (exists("count.matrix")) {
+    mat <- count.matrix[,seq_len(cols)]
+    attr(mat, "id") = id
+    attr(mat, "accession") = accession
+    matrices[[id]] <- mat
+  }
   return(matrices)
 }
 
